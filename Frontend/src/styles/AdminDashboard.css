@@ -1,0 +1,91 @@
+.admin-dashboard {
+  padding: 20px;
+}
+
+.admin-dashboard h2 {
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+.admin-section {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.admin-section h3 {
+  color: var(--text-primary);
+  margin-bottom: 15px;
+}
+
+.admin-news-grid, .admin-users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.admin-news-card, .admin-user-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-news-card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.admin-news-content h4 {
+  color: var(--text-primary);
+  font-size: 16px;
+  margin: 0;
+}
+
+.admin-news-content p, .admin-user-card p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.admin-action-btn {
+  background: var(--button-bg);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  color: var(--text-primary);
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.delete-btn {
+  background: rgba(255, 99, 71, 0.8);
+}
+
+.delete-btn:hover {
+  background: rgba(255, 99, 71, 1);
+}
+
+.ban-btn {
+  background: rgba(255, 165, 0, 0.8);
+}
+
+.ban-btn:hover {
+  background: rgba(255, 165, 0, 1);
+}
+
+.admin-action-btn:hover {
+  background: rgba(53, 122, 189, 0.8);
+}

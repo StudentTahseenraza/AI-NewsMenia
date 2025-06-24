@@ -1,0 +1,39 @@
+:root {
+  --background: linear-gradient(to bottom, #1e2a44, #2a3a5b);
+  --glass-bg: rgba(255, 255, 255, 0.1); /* Semi-transparent white for glass effect */
+  --glass-blur: blur(10px); /* Blur for glass effect */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+  --glass-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  --text-primary: #ffffff;
+  --text-secondary: #b0b8c4;
+  --button-bg: rgba(74, 144, 226, 0.8); /* Slightly more opaque for buttons */
+  --border-color: #3e4a6b;
+}
+
+:root.light-mode {
+  --background: linear-gradient(to bottom, #e0e7ff, #d1d9ff);
+  --glass-bg: rgba(255, 255, 255, 0.3);
+  --glass-blur: blur(10px);
+  --glass-border: 1px solid rgba(0, 0, 0, 0.1);
+  --glass-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --text-primary: #1e2a44;
+  --text-secondary: #5a698f;
+  --button-bg: rgba(74, 144, 226, 0.8);
+  --border-color: #b0b8c4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+html, body, #root {
+  height: 100%;
+}

@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-top: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.social-icon {
+  color: var(--text-secondary);
+  font-size: 20px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: var(--text-primary);
+}
