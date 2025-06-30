@@ -1,4 +1,11 @@
+# Dependencies
+node_modules
 
-*.env
-\node_modules
+# Build output
 dist
+
+# Environment variables
+*.env
+
+# Logs
+*.log
