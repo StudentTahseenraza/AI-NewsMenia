@@ -15,7 +15,7 @@ function NewsDetail({ language }) {
   const [error, setError] = useState(null);
 
   // Use environment variable for backend URL
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-3.onrender.com";
+  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-4.onrender.com";
 
   useEffect(() => {
     const fetchArticle = async () => {
