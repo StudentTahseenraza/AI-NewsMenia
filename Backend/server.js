@@ -12,7 +12,8 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors({ origin: process.env.FRONTEND_URL || "http://localhost:5173" })); // Allow dynamic frontend URL
+const frontendUrl = process.env.FRONTEND_URL || "https://vercel.com/new/tahseen-razas-projects/success?developer-id=&external-id=&redirect-url=&branch=main&deploymentUrl=ai-news-menia-immp-4e7wop3e6-tahseen-razas-projects.vercel.app&projectName=ai-news-menia-immp&s=https%3A%2F%2Fgithub.com%2FStudentTahseenraza%2FAI-NewsMenia&gitOrgLimit=&hasTrialAvailable=1&totalProjects=1&flow-id=8DX28iXAdh8WR_pnaJkSP"; // Add Vercel URL here
+app.use(cors({ origin: [frontendUrl, "https://ai-news-menia-immp.vercel.app/"] })); // Replace with your Vercel URL
 app.use(express.json());
 
 // MongoDB Connection with Retry Logic
