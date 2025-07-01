@@ -61,6 +61,7 @@ function Header({ onLanguageChange }) {
           <>
             <Link to="/login" className="auth-toggle">Login</Link>
             <Link to="/signup" className="auth-toggle">Sign Up</Link>
+            <Link to="/admin" className="auth-toggle">Admin</Link>
           </>
         )}
       </div>
