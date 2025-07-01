@@ -152,4 +152,7 @@ fetchNews();
 setInterval(fetchNews, 6 * 60 * 60 * 1000);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log(`mongodb Connected successfully: ${process.env.MONGO_URI}`); // Log MongoDB URI for debugging
+});
