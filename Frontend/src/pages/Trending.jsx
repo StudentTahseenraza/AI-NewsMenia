@@ -8,7 +8,7 @@ function Trending() {
   const [error, setError] = useState(null);
   const [pollVotes, setPollVotes] = useState({ option1: 0, option2: 0 });
 
-  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-4.onrender.com";
+  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-2.onrender.com/";
 
   useEffect(() => {
     const fetchTrendingNews = async () => {
