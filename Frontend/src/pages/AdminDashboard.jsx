@@ -19,7 +19,7 @@ function AdminDashboard() {
       try {
         setLoading(true);
         setError(null);
-
+        
         // Fetch news from backend
         const newsResponse = await axios.get(`${backendUrl}/api/news`, {
           headers: { "Content-Type": "application/json" },

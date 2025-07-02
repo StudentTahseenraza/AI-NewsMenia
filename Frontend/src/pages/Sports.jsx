@@ -8,62 +8,63 @@ function Sports({ language }) {
   const [error, setError] = useState(null);
   const [translatedNews, setTranslatedNews] = useState([]);
 
+  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-4.onrender.com";
+
   useEffect(() => {
     const fetchNews = async () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get("http://localhost:5000/api/news/sports");
-        const articles = response.data;
+        const response = await axios.get(`${backendUrl}/api/news`, {
+          headers: { "Content-Type": "application/json" },
+        });
+        const sportsNews = response.data.filter((article) => article.category === "sports");
+        setNews(sportsNews);
 
-        setNews(articles);
-
-        // Translate titles and descriptions if language is not English
+        // Translate if language is not English
         if (language !== "en") {
           const translatedArticles = await Promise.all(
-            articles.map(async (article) => {
+            sportsNews.map(async (article) => {
               try {
-                const titleResponse = await axios.post("http://localhost:5000/api/translate", {
+                const titleResponse = await axios.post(`${backendUrl}/api/translate`, {
                   text: article.title,
                   to: language,
-                });
-                const descriptionResponse = await axios.post("http://localhost:5000/api/translate", {
+                }, { headers: { "Content-Type": "application/json" } });
+                const descriptionResponse = await axios.post(`${backendUrl}/api/translate`, {
                   text: article.description || "",
                   to: language,
-                });
+                }, { headers: { "Content-Type": "application/json" } });
                 return {
                   ...article,
                   title: titleResponse.data.translatedText,
                   description: descriptionResponse.data.translatedText,
                 };
               } catch (translationError) {
-                console.error("Error translating article:", translationError);
-                return article; // Fallback to original article
+                console.error("Error translating article:", translationError.message);
+                return article; // Fallback to original
               }
             })
           );
           setTranslatedNews(translatedArticles);
         } else {
-          setTranslatedNews(articles);
+          setTranslatedNews(sportsNews);
         }
       } catch (error) {
-        console.error("Error fetching sports news:", error);
+        console.error("Error fetching sports news:", error.message, error.response?.data);
         setError("Failed to load sports news. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
     fetchNews();
-  }, [language]);
+  }, [language, backendUrl]);
 
+  if (loading) return <p>Loading sports news...</p>;
+  if (error) return <p className="error">{error}</p>;
   return (
     <div className="news-grid">
-      {loading ? (
-        <p>Loading sports news...</p>
-      ) : error ? (
-        <p className="error">{error}</p>
-      ) : translatedNews.length > 0 ? (
-        translatedNews.map((article, index) => (
+      {translatedNews.length > 0 ? (
+        translatedNews.map((article) => (
           <NewsCard
             key={article._id}
             index={article._id}
