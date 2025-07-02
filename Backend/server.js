@@ -13,7 +13,20 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors({ origin: [process.env.FRONTEND_URL, "https://ai-news-menia-immp.vercel.app"] }));
+const allowedOrigins = [process.env.FRONTEND_URL, "https://ai-news-menia-6ily.vercel.app"];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,POST,PUT,DELETE,OPTIONS",
+  allowedHeaders: "Content-Type,Authorization",
+  credentials: true // Allow cookies/auth headers if needed
+}));
+
 app.use(express.json());
 
 // MongoDB Connection with Retry Logic
