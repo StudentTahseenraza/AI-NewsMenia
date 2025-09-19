@@ -3,6 +3,9 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
+// Use only deployed backend URL
+const backendUrl = "https://ai-newsmenia-2.onrender.com";
+
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,7 +14,7 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:5000/api/auth/me", {
+        .get(`${backendUrl}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
@@ -27,7 +30,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const signup = async (email, password) => {
-    const response = await axios.post("http://localhost:5000/api/auth/signup", {
+    const response = await axios.post(`${backendUrl}/api/auth/signup`, {
       email,
       password,
     });
@@ -36,7 +39,7 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const response = await axios.post("http://localhost:5000/api/auth/login", {
+    const response = await axios.post(`${backendUrl}/api/auth/login`, {
       email,
       password,
     });
@@ -49,12 +52,7 @@ export function AuthProvider({ children }) {
     setCurrentUser(null);
   };
 
-  const value = {
-    currentUser,
-    signup,
-    login,
-    logout,
-  };
+  const value = { currentUser, signup, login, logout };
 
   return (
     <AuthContext.Provider value={value}>
