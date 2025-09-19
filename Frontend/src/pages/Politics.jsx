@@ -7,7 +7,7 @@ function Politics({ language }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-2.onrender.com/";
+  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-2.onrender.com";
 
   useEffect(() => {
     const fetchNews = async () => {
