@@ -8,14 +8,8 @@ function Sports({ language }) {
   const [error, setError] = useState(null);
   const [translatedNews, setTranslatedNews] = useState([]);
 
-// src/config.js (better to keep in one place)
-const backendUrl =
-  import.meta.env.VITE_BACKEND_URL ||   // your .env variable (Vite uses VITE_ prefix)
-  (import.meta.env.MODE === "development"
-    ? "http://localhost:5000"           // local backend
-    : "https://ai-newsmenia-2.onrender.com"); // production backend
+  const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || "https://ai-newsmenia-2.onrender.com/";
 
-    
   useEffect(() => {
     const fetchNews = async () => {
       try {
