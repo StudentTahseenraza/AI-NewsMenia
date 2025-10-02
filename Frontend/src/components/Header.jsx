@@ -3,23 +3,15 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Header.css";
 
-function Header({ onLanguageChange }) {
+function Header({ onLanguageChange, onMenuToggle }) {
   const [theme, setTheme] = useState("dark");
   const [language, setLanguage] = useState("en");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { currentUser, logout } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     document.documentElement.className = theme === "dark" ? "" : "light-mode";
   }, [theme]);
-
-  useEffect(() => {
-    if (currentUser && currentUser.role === "admin") {
-      setIsAdmin(true);
-    } else {
-      setIsAdmin(false);
-    }
-  }, [currentUser]);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -35,18 +27,38 @@ function Header({ onLanguageChange }) {
     logout();
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleMenuToggle = () => {
+    onMenuToggle();
+  };
+
   return (
     <header className="header">
+      {/* Hamburger Menu Button */}
+      <button className="hamburger-menu" onClick={handleMenuToggle}>
+        ☰
+      </button>
+      
       <div className="logo">NewsSphere</div>
+      
+      {/* Desktop Navigation */}
       <nav className="nav">
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/politics" className="nav-link">Politics</Link>
         <Link to="/sports" className="nav-link">Sports</Link>
-        {isAdmin && <Link to="/admin" className="nav-link">Admin</Link>}
       </nav>
-      <div className="header-right">
+
+      {/* Mobile Menu Button */}
+      <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+        ⋮
+      </button>
+
+      <div className={`header-right ${isMobileMenuOpen ? 'active' : ''}`}>
         <button className="theme-toggle" onClick={toggleTheme}>
-          {theme === "dark" ? "Light" : "Dark"}
+          {theme === "dark" ? "🌙" : "☀️"}
         </button>
         <div className="language-selector">
           <select value={language} onChange={handleLanguageChange}>
@@ -61,10 +73,15 @@ function Header({ onLanguageChange }) {
           <>
             <Link to="/login" className="auth-toggle">Login</Link>
             <Link to="/signup" className="auth-toggle">Sign Up</Link>
-            <Link to="/admin" className="auth-toggle">Admin</Link>
           </>
         )}
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`}
+        onClick={toggleMobileMenu}
+      ></div>
     </header>
   );
 }

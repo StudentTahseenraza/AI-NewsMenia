@@ -14,25 +14,62 @@ import MissedVault from "./pages/MissedVault";
 import Trending from "./pages/Trending";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import AdminDashboard from "./pages/AdminDashboard";
 import NewsDetail from "./pages/NewsDetail";
-import "./styles/App.css";
+import "./App.css";
 
 function App() {
   const [language, setLanguage] = useState("en");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
+  };
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
+  const toggleSidebarCollapse = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
   };
 
   return (
     <AuthProvider>
       <Router>
         <div className="app">
-          <Header onLanguageChange={handleLanguageChange} />
+          <Header onLanguageChange={handleLanguageChange} onMenuToggle={toggleSidebar} />
           <div className="main-content">
-            <Sidebar />
-            <div className="content">
+            {/* Sidebar Overlay for Mobile */}
+            <div 
+              className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`} 
+              onClick={closeSidebar}
+            ></div>
+            
+            {/* Sidebar Wrapper with Toggle Button */}
+            <div className="sidebar-wrapper">
+              <Sidebar 
+                isOpen={sidebarOpen} 
+                onClose={closeSidebar}
+                isCollapsed={sidebarCollapsed}
+                onToggleCollapse={toggleSidebarCollapse}
+              />
+              
+              {/* Desktop Toggle Button */}
+              <button 
+                className="sidebar-toggle" 
+                onClick={toggleSidebarCollapse}
+                style={{ display: sidebarCollapsed ? 'flex' : 'flex' }}
+              >
+                {sidebarCollapsed ? '→' : '←'}
+              </button>
+            </div>
+            
+            <div className={`content ${sidebarCollapsed ? 'collapsed' : ''}`}>
               <Routes>
                 <Route path="/" element={<Home language={language} />} />
                 <Route path="/politics" element={<Politics language={language} />} />
@@ -41,7 +78,6 @@ function App() {
                 <Route path="/trending" element={<Trending language={language} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/news/:id" element={<NewsDetail language={language} />} />
                 <Route
                   path="/offline"
@@ -59,7 +95,7 @@ function App() {
                     </PrivateRoute>
                   }
                 />
-                <Route path="*" element={<h1>404 - Page Not Found</h1>} /> {/* Catch-all for 404 */}
+                <Route path="*" element={<h1>404 - Page Not Found</h1>} />
               </Routes>
             </div>
           </div>
