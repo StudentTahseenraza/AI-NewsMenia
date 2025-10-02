@@ -7,9 +7,12 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start; /* Change from space-between to flex-start */
   z-index: 999;
   transition: transform 0.3s ease, width 0.3s ease;
+  /* Allow sidebar to scroll if content is too long */
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
 /* Sidebar Header */
@@ -20,6 +23,7 @@
   padding: 20px;
   border-bottom: var(--glass-border);
   background: rgba(255, 255, 255, 0.05);
+  flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 .sidebar-title {
@@ -30,7 +34,6 @@
 }
 
 .sidebar-close {
-  display: none;
   background: none;
   border: none;
   color: var(--text-secondary);
@@ -55,7 +58,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  flex: 1;
+  flex: 1; /* Take available space */
+  overflow-y: auto; /* Allow menu to scroll if needed */
 }
 
 .sidebar-item {
@@ -67,6 +71,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-decoration: none;
 }
 
 .sidebar-item:hover {
@@ -83,6 +88,7 @@
   font-size: 18px;
   width: 24px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .sidebar-footer {
@@ -90,6 +96,7 @@
   padding: 20px;
   border-top: var(--glass-border);
   background: rgba(255, 255, 255, 0.05);
+  flex-shrink: 0; /* Prevent footer from shrinking */
 }
 
 .sidebar-links {
@@ -176,7 +183,7 @@
     position: fixed;
     top: 0;
     left: -280px;
-    height: 100%;
+    height: 100vh;
     width: 280px;
     transition: left 0.3s ease;
   }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
@@ -38,6 +38,20 @@ function App() {
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
+  // Effect to handle body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.classList.add('sidebar-open');
+    } else {
+      document.body.classList.remove('sidebar-open');
+    }
+
+    // Cleanup function
+    return () => {
+      document.body.classList.remove('sidebar-open');
+    };
+  }, [sidebarOpen]);
+
   return (
     <AuthProvider>
       <Router>
@@ -60,13 +74,14 @@ function App() {
               />
               
               {/* Desktop Toggle Button */}
-              <button 
-                className="sidebar-toggle" 
-                onClick={toggleSidebarCollapse}
-                style={{ display: sidebarCollapsed ? 'flex' : 'flex' }}
-              >
-                {sidebarCollapsed ? '→' : '←'}
-              </button>
+              {!sidebarOpen && (
+                <button 
+                  className="sidebar-toggle" 
+                  onClick={toggleSidebarCollapse}
+                >
+                  {sidebarCollapsed ? '→' : '←'}
+                </button>
+              )}
             </div>
             
             <div className={`content ${sidebarCollapsed ? 'collapsed' : ''}`}>
